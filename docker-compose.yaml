@@ -1,0 +1,19 @@
+services:
+  node-exporter-1:
+    image: "quay.io/prometheus/node-exporter:latest"
+    hostname: node-exporter-1
+    ports:
+      - "9101:9100"
+
+  local-opentelemetry-collector:
+    image: "otel/opentelemetry-collector:0.146.1"
+    ports:
+      - "4318:4318"
+      - "9464:9464"
+    volumes:
+      - "./local-collector/config.yaml:/etc/otelcol/config.yaml"
+
+  prometheus:
+    image: "prom/prometheus:latest"
+    ports:
+      - "9090:9090"

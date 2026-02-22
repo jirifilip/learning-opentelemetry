@@ -5,6 +5,20 @@ services:
     ports:
       - "9101:9100"
 
+  cadvisor:
+    image: "ghcr.io/google/cadvisor:latest"
+    volumes:
+      - "/:/rootfs:ro"
+      - "/var/run:/var/run:ro"
+      - "/sys:/sys:ro"
+      - "/var/lib/docker/:/var/lib/docker:ro"
+      - "/dev/disk/:/dev/disk:ro"
+    ports:
+      - "8080:8080"
+    privileged: true
+    devices:
+      - /dev/kmsg
+
   local-opentelemetry-collector:
     image: "otel/opentelemetry-collector:0.146.1"
     volumes:

@@ -1,0 +1,4 @@
+scrape_configs:
+  - job_name: "opentelemetry-collector"
+    static_configs:
+      - targets: ["remote-opentelemetry-collector:9464"]

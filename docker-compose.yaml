@@ -7,13 +7,20 @@ services:
 
   local-opentelemetry-collector:
     image: "otel/opentelemetry-collector:0.146.1"
+    volumes:
+      - "./local-collector/config.yaml:/etc/otelcol/config.yaml"
+
+  remote-opentelemetry-collector:
+    image: "otel/opentelemetry-collector:0.146.1"
     ports:
       - "4318:4318"
       - "9464:9464"
     volumes:
-      - "./local-collector/config.yaml:/etc/otelcol/config.yaml"
+      - "./remote-collector/config.yaml:/etc/otelcol/config.yaml"
 
   prometheus:
     image: "prom/prometheus:latest"
     ports:
       - "9090:9090"
+    volumes:
+      - "./prometheus/config.yaml:/etc/prometheus/prometheus.yml"
